@@ -1,0 +1,64 @@
+[meta]
+name = "vid-msa"
+debug = true
+server_address = ":8090"
+prefork = false
+reduce_memory = false
+
+[log]
+log-path = "./log"
+# 保存的最大天数
+max-age = 30
+# 日志文件小大（M）
+max-size = 100
+# 最多存在多少个切片文件
+max-back-up = 60
+
+[mysql]
+host = "127.0.0.1"
+port = 3306
+user = "root"
+password = "123"
+db = "gofiber"
+charset = "utf8"
+max-idle = 50
+max-active = 100
+max-lifetime = 30 # second
+
+[redis]
+address = "127.0.0.1:6379"
+db = 0
+password = ""
+
+[cache]
+enable = false
+redis_host = "127.0.0.1"
+redis_port = 6379
+redis_password = ""
+redis_db = 1
+expiration = 5  # minute
+
+[jwt]
+secret = "VDSGSBGH++*-*1C"
+expire = 1209600  # second  # two weeks
+issuer = "seefs"
+
+[casbin]
+enable = true
+config-path = "./casbin_rule.conf"
+log = true
+
+[qiniu]
+bucket = ""
+accessKey = ""
+secretKey = ""
+
+[serverchan]
+sckey = "xxxxxxxxx"
+
+[smtp]
+username = "xxxxx@163.com"
+password = "xxxxx"
+host = "smtp.163.com"
+port = 465
+name = "xxxxx@163.com"
