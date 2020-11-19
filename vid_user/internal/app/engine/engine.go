@@ -8,8 +8,8 @@ import (
 	"github.com/douyu/jupiter/pkg/util/xgo"
 	"github.com/douyu/jupiter/pkg/xlog"
 	"vid_user/internal/app/gredis"
-	grpc "vid_user/internal/app/grpc/user"
-	"vid_user/pb/user"
+	"vid_user/internal/app/grpc/user"
+	pb "vid_user/pb/user"
 )
 
 type Engine struct {
@@ -34,18 +34,19 @@ func (eng *Engine) serveHTTP() error {
 	server := xecho.StdConfig("http").Build()
 
 	//support proxy for http to grpc controller
-	g := grpc.UserServiceServer{}
+	g := user.ServiceServer{}
 	group2 := server.Group("/grpc")
-	group2.GET("/get", xecho.GRPCProxyWrapper(g.SayHello))
+	group2.GET("/get", xecho.GRPCProxyWrapper(g.EmailLogin))
+	group2.POST("/post", xecho.GRPCProxyWrapper(g.PhoneLogin))
 	return eng.Serve(server)
 }
 
 func (eng *Engine) serveGRPC() error {
 	server := xgrpc.StdConfig("grpc").Build()
 
-	user.RegisterUserServiceServer(
+	pb.RegisterUserServiceServer(
 		server.Server,
-		&grpc.UserServiceServer{},
+		&user.ServiceServer{},
 	)
 	return eng.Serve(server)
 }

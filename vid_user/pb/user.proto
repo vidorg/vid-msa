@@ -1,0 +1,29 @@
+syntax = "proto3";
+package user;
+option go_package = ".;user";
+
+message PhoneLoginRequest {
+  string phone = 1;
+  string password = 2;
+}
+
+message PhoneCodeLoginRequest {
+  string phone = 1;
+  string code = 2;
+}
+
+message EmailLoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message Response {
+  string token = 1;
+  string refresh_token = 2;
+}
+
+service UserService {
+  rpc PhoneLogin(PhoneLoginRequest) returns (Response){}
+  rpc EmailLogin(EmailLoginRequest) returns (Response){}
+  rpc PhoneVerificationCodeLogin(PhoneCodeLoginRequest) returns (Response){}
+}

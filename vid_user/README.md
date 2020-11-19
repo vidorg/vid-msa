@@ -246,7 +246,7 @@ jupiter protoc工具集目前可用于根据pb文件中的proto文件，生成pb
 
 2. 生成grpc服务端实现
 ```
-jupiter protoc -f ./pb/hello/hello.proto -o ./internal/app/grpc -p jupiter-demo -s
+jupiter protoc -f ./pb/user/user.proto -o ./internal/app/grpc -p vid_user -s
 ```
 命令解释:    
 -f : proto文件路径  

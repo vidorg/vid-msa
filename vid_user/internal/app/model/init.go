@@ -54,7 +54,7 @@ func Database(dialector gorm.Dialector) error {
 
 // migration auto migration
 func migration() {
-	if err := DB.AutoMigrate(&Address{}); err != nil {
+	if err := DB.AutoMigrate(); err != nil {
 		panic("auto migration err")
 	}
 }
