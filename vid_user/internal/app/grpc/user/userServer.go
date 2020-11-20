@@ -19,6 +19,10 @@ const (
 
 type UserServer struct{}
 
+func (server *UserServer) GetUserID(ctx context.Context, request *user.GetUserIDRequest) (*user.Response, error) {
+	panic("xxx")
+}
+
 func (server *UserServer) SetUserInfo(ctx context.Context, request *user.SetUserInfoRequest) (response *user.Response, err error) {
 	if model.DB.Where("id = ?", request.Uid).
 		Updates(&model.User{

@@ -1,0 +1,25 @@
+### Editor ###
+.vscode/
+.idea/
+.history/
+
+### Build ###
+vendor/
+build/
+log/
+pkg/conf/log/
+### Executable ###
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.out
+*_test.go
+
+### Project ###
+config.yaml
+config.yml
+static/
+*.db
+config.toml

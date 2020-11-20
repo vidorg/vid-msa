@@ -31,7 +31,6 @@ message Response {
   string message = 2;
   TokenData data = 3;
   UserInfo user = 4;
-  int64 user_id = 5;
 }
 
 message UserInfo{
@@ -47,14 +46,10 @@ message SetUserInfoRequest{
   int32 gender = 3;
 }
 
-message GetUserIDRequest{
-  string token = 1;
-}
 service User {
   rpc PhoneLogin(PhoneLoginRequest) returns (Response);
   rpc EmailLogin(EmailLoginRequest) returns (Response);
   rpc PhoneVerificationCodeLogin(PhoneCodeLoginRequest) returns (Response);
   rpc GetUser(GetUserRequest) returns (Response);
   rpc SetUserInfo(SetUserInfoRequest) returns (Response);
-  rpc GetUserID(GetUserIDRequest) returns (Response);
 }

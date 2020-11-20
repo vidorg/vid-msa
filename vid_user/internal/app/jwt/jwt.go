@@ -36,9 +36,12 @@ func GenerateToken(uid int64) (string, error) {
 }
 
 // ParseToken 转换token
-func ParseToken(token string) (*Claims, error) {
+func ParseToken(token string) (Claims, error) {
 	verify, err := jwt.Verify(jwt.HS256, []byte(secret), []byte(token))
-	var claims *Claims
+	if err != nil {
+		panic(err)
+	}
+	var claims Claims
 	err = verify.Claims(&claims)
 
 	return claims, err
