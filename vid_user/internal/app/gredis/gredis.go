@@ -12,6 +12,9 @@ const ValidCodePrefix = "vid:phone_code:"
 
 func CheckPhoneCode(phone string, code string) bool {
 	validCode := RedisClient.Get(ValidCodePrefix + phone)
+	if validCode == "" {
+		return false
+	}
 	return validCode == code
 }
 

@@ -47,6 +47,13 @@ func (server *UserServer) GetUser(context context.Context, request *user.GetUser
 		}
 		return
 	}
+	if !gredis.CheckToken(request.Token, claims.UID) {
+		response = &user.Response{
+			Code:    20006,
+			Message: "你还没有登录",
+		}
+		return
+	}
 	var userInfo model.User
 	result := model.DB.Where("id = ?", claims.UID).
 		First(&userInfo)
@@ -165,9 +172,11 @@ func (server *UserServer) PhoneVerificationCodeLogin(context context.Context, re
 	if result.Error == gorm.ErrRecordNotFound {
 		uid := uuid.GenerateID()
 		if model.DB.Create(&model.UserAuthorization{
+			ID:           uuid.GenerateID(),
 			UserID:       uid,
 			IdentityType: "phone",
 			Identifier:   request.Phone,
+			Credential:   request.Phone,
 		}).RowsAffected == 0 {
 			response = &user.Response{
 				Code:    500,
@@ -186,8 +195,8 @@ func (server *UserServer) PhoneVerificationCodeLogin(context context.Context, re
 			}
 			return
 		}
-		token, err := jwt.GenerateToken(uid)
-		if err != nil {
+		token, err1 := jwt.GenerateToken(uid)
+		if err1 != nil {
 			response = &user.Response{
 				Code:    500,
 				Message: "生成token出错",
