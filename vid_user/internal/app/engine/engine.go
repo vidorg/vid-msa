@@ -33,20 +33,20 @@ func NewEngine() *Engine {
 func (eng *Engine) serveHTTP() error {
 	server := xecho.StdConfig("http").Build()
 
-	//support proxy for http to grpc controller
-	g := user.ServiceServer{}
-	group2 := server.Group("/grpc")
-	group2.GET("/get", xecho.GRPCProxyWrapper(g.EmailLogin))
-	group2.POST("/post", xecho.GRPCProxyWrapper(g.PhoneLogin))
+	g := user.UserServer{}
+	group := server.Group("/grpc")
+	group.POST("/email", xecho.GRPCProxyWrapper(g.EmailLogin))
+	group.POST("/phone", xecho.GRPCProxyWrapper(g.PhoneLogin))
+	group.POST("/code", xecho.GRPCProxyWrapper(g.PhoneVerificationCodeLogin))
 	return eng.Serve(server)
 }
 
 func (eng *Engine) serveGRPC() error {
 	server := xgrpc.StdConfig("grpc").Build()
 
-	pb.RegisterUserServiceServer(
+	pb.RegisterUserServer(
 		server.Server,
-		&user.ServiceServer{},
+		&user.UserServer{},
 	)
 	return eng.Serve(server)
 }
