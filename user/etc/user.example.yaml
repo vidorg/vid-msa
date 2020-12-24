@@ -1,0 +1,9 @@
+Name: user.rpc
+ListenOn: 127.0.0.1:8080
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: user.rpc
+DataSourceName: root:1D007648b4f8@(127.0.0.1:3306)/gozero?charset=utf8
+RedisAddr: 127.0.0.1:6379
+RedisPass:

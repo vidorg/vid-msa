@@ -5,3 +5,4 @@
 .history/
 .vscode/
 vendor/
+user/etc/user.yaml
